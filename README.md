@@ -12,9 +12,9 @@ iteration:6.00, update:2.00, mu_1:(-2.00, -2.00), mu_2:(3.00, 3.00), var_1:(1.00
 iteration:7.00, update:1.00, mu_1:(-2.00, -2.00), mu_2:(3.00, 2.00), var_1:(1.00, 7.00), var_2:(1.00, 3.00),   
 iteration:8.00, update:1.00, mu_1:(-2.00, -2.00), mu_2:(2.00, 2.00), var_1:(1.00, 7.00), var_2:(1.00, 3.00),   
 iteration:9.00, update:0.00, mu_1:(-2.00, -2.00), mu_2:(2.00, 2.00), var_1:(1.00, 7.00), var_2:(2.00, 3.00),   
-
+```
 ## Result
-![ground truth](https://github.com/xianglinyang/EM/blob/master/result/ground_truth.png?raw=true "EM")
+![ground truth](https://github.com/xianglinyang/EM/blob/master/result/ground_truth.png)
 ![EM result](https://github.com/xianglinyang/EM/blob/master/result/itertion9.png?raw=true "EM")
 
 reference:
