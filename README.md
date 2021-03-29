@@ -3,6 +3,7 @@
 python implementation of Expectation Maximization Algorithm  
 ## Update parameters
 ```
+ground truth:mu_1:(-3.00, -3.00), mu_2:(3.00, 3.00), var_1:(2.00, 4.50), var_2:(1.00, 8.00)
 iteration:1.00, update:16.36, mu_1:(1.00, 1.00), mu_2:(5.00, 5.00), var_1:(1.00, 1.00), var_2:(1.00, 1.00),  
 iteration:2.00, update:4.41, mu_1:(-1.00, -1.00), mu_2:(3.00, 4.00), var_1:(6.00, 10.00), var_2:(1.00, 2.00),   
 iteration:3.00, update:2.00, mu_1:(-1.00, -2.00), mu_2:(3.00, 3.00), var_1:(5.00, 9.00), var_2:(1.00, 1.00),   
