@@ -56,7 +56,7 @@ def EM(data_exp, param):
 
         update = check_converge(param, update_param)
         print(
-            "iteration:{:.2f}, update:{:.2f}, mu_1:({:.2f}, {:.2f}), mu_2:({:.2f}, {:.2f}), var_1:({:.2f}, {:.2f}), var_2:({:.2f}, {:.2f}), ".format(
+            "iteration:{:.2f}, update:{:.2f}, mu_1:({:.2f}, {:.2f}), mu_2:({:.2f}, {:.2f}), var_1:({:.2f}, {:.2f}), var_2:({:.2f}, {:.2f}), lambda:({:.2f}, {:.2f})".format(
                 iteration, update,
                 param.mu_1[0],
                 param.mu_1[1],
@@ -66,7 +66,8 @@ def EM(data_exp, param):
                 param.sigma_1[1, 1],
                 param.sigma_2[0, 0],
                 param.sigma_2[1, 1],
-
+                param.lambd[0],
+                param.lambd[1]
             ))
         data_exp = update_data
         param = update_param
