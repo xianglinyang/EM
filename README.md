@@ -13,8 +13,8 @@ iteration:5.00, update:0.00, mu_1:(-2.00, -2.00), mu_2:(3.00, 3.00), var_1:(1.00
 ## Result
 
 <p float="left">
-  <img src="result/ground_truth.png" width="470" />
-  <img src="result/iteration5.png" width="470" />
+  <img src="result/ground_truth.png" width="450" />
+  <img src="result/iteration5.png" width="450" />
 </p>
 
 ## reference:
