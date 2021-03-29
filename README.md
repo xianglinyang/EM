@@ -15,7 +15,7 @@ iteration:9.00, update:0.00, mu_1:(-2.00, -2.00), mu_2:(2.00, 2.00), var_1:(1.00
 ```
 ## Result
 ![ground truth](https://github.com/xianglinyang/EM/blob/master/result/ground_truth.png)
-![EM result](https://github.com/xianglinyang/EM/blob/master/result/itertion9.png?raw=true "EM")
+![EM result](https://github.com/xianglinyang/EM/blob/master/result/itertion9.png)
 
 reference:
-> https://github.com/rezaahmadzadeh/Expectation-Maximization
+> matlab code https://github.com/rezaahmadzadeh/Expectation-Maximization
