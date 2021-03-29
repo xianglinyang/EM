@@ -46,4 +46,4 @@ def savefig(data, mu_1, mu_2, name):
     ax.scatter(mu_1[0], mu_1[1], c="red", s=20, marker="x")
     ax.scatter(mu_2[0], mu_2[1], c="blue", s=20, marker="x")
     ax.set_title("{}".format(name))
-    fig.savefig("{}.png".format(name))
+    fig.savefig("result\\{}.png".format(name))
