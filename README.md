@@ -16,8 +16,8 @@ iteration:8.00, update:0.01, mu_1:(2.99, 2.78), mu_2:(-3.02, -3.08), var_1:(1.63
 ## Result
 
 <p float="left">
-  <img src="result/ground_truth.png" width="470" />
-  <img src="result/iteration8.png" width="470" />
+  <img src="result/ground_truth.png" width="450" />
+  <img src="result/iteration8.png" width="450" />
 </p>
 
 ## reference:
