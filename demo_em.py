@@ -20,7 +20,7 @@ if __name__ == "__main__":
     data_exp[:, 2] = np.random.randint(2, size=num_cluster_1+num_cluster_2)
 
     # start with a randomly guess
-    param = Param.Param()
+    param = Param.Param(num_cluster_1+num_cluster_2)
 
     data, param = em.EM(data_exp, param)
 

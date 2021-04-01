@@ -11,35 +11,55 @@ def expectation(data_exp, param):
     :return: data, the dataset with update label
     """
     data = np.copy(data_exp)
+    update_gamma = np.zeros((len(data), 2))
     for i in range(len(data)):
         coordinate = data[i][:2]
-        p_1 = cal_prob(coordinate, param.mu_1, param.sigma_1, param.lambd[0])
-        p_2 = cal_prob(coordinate, param.mu_2, param.sigma_2, param.lambd[1])
+        p_1 = cal_prob(coordinate, param.mu_1, param.sigma_1)
+        p_2 = cal_prob(coordinate, param.mu_2, param.sigma_2)
+        update_gamma[i][0] = p_1
+        update_gamma[i][1] = p_2
         if p_1 > p_2:
             data[i][2] = 0
         else:
             data[i][2] = 1
-    return data
+    update_gamma[:, 0] = update_gamma[:, 0] * param.pi[0]
+    update_gamma[:, 1] = update_gamma[:, 1] * param.pi[1]
+    gamma_sum = update_gamma.sum(axis=1)
+    gamma_sum = np.vstack((gamma_sum, gamma_sum)).T
+    update_gamma = update_gamma / gamma_sum
+    return data, update_gamma
 
 
-def maximization(data, param):
-    cluster_1 = data[np.where(data[:, 2] == 0)]
-    cluster_2 = data[np.where(data[:, 2] == 1)]
+def get_mean(data, gamma, k):
+    mu = np.zeros(2)
+    for i in range(len(data)):
+        mu = mu + gamma[i][k]*data[i][:2]
+    tau_k = gamma.sum(axis=0)[k]
+    return mu / tau_k
 
-    update_param = Param.Param()
 
-    update_param.lambd[0] = len(cluster_1) / float(len(data))
-    update_param.lambd[1] = 1 - update_param.lambd[0]
+def get_var(data, gamma, k, mu):
+    var = np.zeros((2, 2))
+    for i in range(len(data)):
+        var = var + gamma[i][k] * np.outer(data[i][:2], data[i][:2])
+    tau_k = gamma.sum(axis=0)[k]
+    var = var / tau_k
 
-    update_param.mu_1[0] = np.mean(cluster_1[:, 0])
-    update_param.mu_1[1] = np.mean(cluster_1[:, 1])
-    update_param.mu_2[0] = np.mean(cluster_2[:, 0])
-    update_param.mu_2[1] = np.mean(cluster_2[:, 1])
+    var = var - np.outer(mu, mu)
+    return var
 
-    update_param.sigma_1[0, 0] = np.var(cluster_1[:, 0])
-    update_param.sigma_1[1, 1] = np.var(cluster_1[:, 1])
-    update_param.sigma_2[0, 0] = np.var(cluster_2[:, 0])
-    update_param.sigma_2[1, 1] = np.var(cluster_2[:, 1])
+
+def maximization(data, update_gamma):
+    update_param = Param.Param(len(data))
+
+    update_param.pi[0] = update_gamma.sum(axis=0)[0] / len(data)
+    update_param.pi[1] = 1 - update_param.pi[0]
+
+    update_param.mu_1 = get_mean(data, update_gamma, 0)
+    update_param.mu_2 = get_mean(data, update_gamma, 1)
+
+    update_param.sigma_1 = get_var(data, update_gamma, 0, update_param.mu_1)
+    update_param.sigma_2 = get_var(data, update_gamma, 1, update_param.mu_2)
 
     return update_param
 
@@ -51,8 +71,9 @@ def EM(data_exp, param):
     savefig(data_exp, param.mu_1, param.mu_2, "iteration{:d}".format(iteration))
     while update > epsilon:
         iteration = iteration + 1
-        update_data = expectation(data_exp, param)
-        update_param = maximization(update_data, param)
+        update_data, update_gamma = expectation(data_exp, param)
+        update_param = maximization(update_data, update_gamma)
+        update_param.gamma = np.copy(update_gamma)
 
         update = check_converge(param, update_param)
         print(
@@ -66,8 +87,8 @@ def EM(data_exp, param):
                 param.sigma_1[1, 1],
                 param.sigma_2[0, 0],
                 param.sigma_2[1, 1],
-                param.lambd[0],
-                param.lambd[1]
+                param.pi[0],
+                param.pi[1]
             ))
         data_exp = update_data
         param = update_param

@@ -29,8 +29,8 @@ def check_converge(param, new_param):
     return dist_mu+dist_sigma
 
 
-def cal_prob(coordinate, mu, sigma, lambd):
-    p = lambd
+def cal_prob(coordinate, mu, sigma):
+    p = 1.0
     for i in range(2):
         p = p * normpdf(coordinate[i], mu[i], sigma[i, i])
     return p
